@@ -1,4 +1,6 @@
-import "dotenv/config";
+import { config } from "dotenv";
+config({ path: ".env.local" });
+config(); // fallback to .env
 import { defineConfig } from "@prisma/config";
 
 // Prisma 7 moved `datasource.url` out of schema.prisma.
