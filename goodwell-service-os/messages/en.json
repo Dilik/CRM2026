@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "login.title": "Sign in",
+    "login.phoneLabel": "Phone number",
+    "login.phonePlaceholder": "+998 (XX) XXX-XX-XX",
+    "login.continue": "Continue",
+    "login.error.generic": "Something went wrong. Try again.",
+    "login.error.smsFailed": "Couldn't send code. Try again.",
+    "otp.title": "Verification code",
+    "otp.subtitle": "Enter the 6-digit code sent to your phone",
+    "otp.resend": "Resend code",
+    "otp.resendIn": "Resend in {seconds}s",
+    "otp.verify": "Verify",
+    "otp.error.invalid": "Invalid or expired code",
+    "logout": "Sign out"
+  },
+  "shell": {
+    "nav.dashboard": "Dashboard",
+    "nav.orders": "Orders",
+    "nav.customers": "Customers",
+    "nav.catalog": "Catalog",
+    "nav.warehouse": "Warehouse",
+    "nav.finance": "Finance",
+    "nav.reports": "Reports",
+    "nav.settings": "Settings",
+    "nav.staffManagement": "Staff",
+    "profile.language": "Language",
+    "profile.signOut": "Sign out"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error.unauthorized": "Forbidden"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "login.title": "Вход в систему",
+    "login.phoneLabel": "Номер телефона",
+    "login.phonePlaceholder": "+998 (XX) XXX-XX-XX",
+    "login.continue": "Продолжить",
+    "login.error.generic": "Произошла ошибка. Попробуйте ещё раз.",
+    "login.error.smsFailed": "Не удалось отправить код. Попробуйте ещё раз.",
+    "otp.title": "Код подтверждения",
+    "otp.subtitle": "Введите 6-значный код, отправленный на ваш телефон",
+    "otp.resend": "Отправить код повторно",
+    "otp.resendIn": "Отправить повторно ({seconds}с)",
+    "otp.verify": "Подтвердить",
+    "otp.error.invalid": "Неверный или просроченный код",
+    "logout": "Выйти"
+  },
+  "shell": {
+    "nav.dashboard": "Главная",
+    "nav.orders": "Заказы",
+    "nav.customers": "Клиенты",
+    "nav.catalog": "Каталог",
+    "nav.warehouse": "Склад",
+    "nav.finance": "Финансы",
+    "nav.reports": "Отчёты",
+    "nav.settings": "Настройки",
+    "nav.staffManagement": "Сотрудники",
+    "profile.language": "Язык",
+    "profile.signOut": "Выйти"
+  },
+  "common": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "delete": "Удалить",
+    "edit": "Редактировать",
+    "loading": "Загрузка...",
+    "error.unauthorized": "Доступ запрещён"
+  }
+}
