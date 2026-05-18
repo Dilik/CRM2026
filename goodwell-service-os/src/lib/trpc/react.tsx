@@ -8,6 +8,8 @@ import { useState, type ReactNode } from "react";
 import type { AppRouter } from "@/server/routers/_app";
 
 export const trpc = createTRPCReact<AppRouter>();
+// Alias so callers can use `import { api } from "@/lib/trpc/react"`
+export const api = trpc;
 
 export function TRPCProvider({ children }: { children: ReactNode }) {
   const [queryClient] = useState(

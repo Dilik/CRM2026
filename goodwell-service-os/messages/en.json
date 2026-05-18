@@ -1,31 +1,68 @@
 {
   "auth": {
-    "login.title": "Sign in",
-    "login.phoneLabel": "Phone number",
-    "login.phonePlaceholder": "+998 (XX) XXX-XX-XX",
-    "login.continue": "Continue",
-    "login.error.generic": "Something went wrong. Try again.",
-    "login.error.smsFailed": "Couldn't send code. Try again.",
-    "otp.title": "Verification code",
-    "otp.subtitle": "Enter the 6-digit code sent to your phone",
-    "otp.resend": "Resend code",
-    "otp.resendIn": "Resend in {seconds}s",
-    "otp.verify": "Verify",
-    "otp.error.invalid": "Invalid or expired code",
+    "login": {
+      "title": "Sign in",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "+998 (XX) XXX-XX-XX",
+      "emailLabel": "Email address",
+      "emailPlaceholder": "example@mail.com",
+      "continue": "Continue",
+      "phoneTab": "Phone",
+      "emailTab": "Email",
+      "passwordTab": "Password",
+      "error": {
+        "generic": "Something went wrong. Try again.",
+        "smsFailed": "Couldn't send code. Try again.",
+        "emailFailed": "Couldn't send code to email. Try again.",
+        "invalidEmail": "Enter a valid email address."
+      }
+    },
+    "otp": {
+      "title": "Verification code",
+      "subtitlePhone": "Enter the 6-digit code sent to your phone",
+      "subtitleEmail": "Enter the 6-digit code sent to your email",
+      "resend": "Resend code",
+      "resendIn": "Resend in {seconds}s",
+      "verify": "Verify",
+      "error": {
+        "invalid": "Invalid or expired code"
+      }
+    },
     "logout": "Sign out"
   },
   "shell": {
-    "nav.dashboard": "Dashboard",
-    "nav.orders": "Orders",
-    "nav.customers": "Customers",
-    "nav.catalog": "Catalog",
-    "nav.warehouse": "Warehouse",
-    "nav.finance": "Finance",
-    "nav.reports": "Reports",
-    "nav.settings": "Settings",
-    "nav.staffManagement": "Staff",
-    "profile.language": "Language",
-    "profile.signOut": "Sign out"
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "customers": "Customers",
+      "catalog": "Catalog",
+      "warehouse": "Warehouse",
+      "finance": "Finance",
+      "reports": "Reports",
+      "settings": "Settings",
+      "staffManagement": "Staff"
+    },
+    "profile": {
+      "language": "Language",
+      "signOut": "Sign out"
+    }
+  },
+  "staff": {
+    "title": "Staff",
+    "create": "Add staff",
+    "createTitle": "New staff member",
+    "name": "Full name",
+    "phone": "Phone",
+    "role": "Role",
+    "active": "Active",
+    "empty": "No staff yet",
+    "created": "Staff member added",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "phoneTaken": "This phone number is already registered",
+      "generic": "Something went wrong"
+    }
   },
   "common": {
     "save": "Save",
@@ -33,6 +70,8 @@
     "delete": "Delete",
     "edit": "Edit",
     "loading": "Loading...",
-    "error.unauthorized": "Forbidden"
+    "error": {
+      "unauthorized": "Forbidden"
+    }
   }
 }

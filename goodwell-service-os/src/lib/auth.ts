@@ -1,9 +1,11 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { phoneNumber } from "better-auth/plugins/phone-number";
+import { emailOTP } from "better-auth/plugins/email-otp";
 import { prisma } from "@/lib/db";
 import { env } from "@/lib/env";
 import { sendOtpSms } from "@/lib/otp/eskiz";
+import { sendOtpEmail } from "@/lib/otp/mailer";
 import { checkAndConsumeOtpQuota } from "@/lib/otp/rate-limit";
 import { normalizeUzbekPhone } from "@/lib/phone";
 
@@ -11,12 +13,27 @@ export const auth = betterAuth({
   baseURL: env.BETTER_AUTH_URL,
   secret: env.BETTER_AUTH_SECRET,
   database: prismaAdapter(prisma, { provider: "postgresql" }),
+  emailAndPassword: {
+    enabled: true,
+    disableSignUp: true, // staff accounts are created only by admin via Staff Management
+  },
   session: {
     expiresIn: 60 * 60 * 24 * 30,  // 30 days
     updateAge: 60 * 60 * 24,       // refresh sliding window once per day
     cookieCache: { enabled: true, maxAge: 60 * 5 },
   },
   plugins: [
+    emailOTP({
+      sendVerificationOTP: async ({ email, otp }) => {
+        const result = await sendOtpEmail(email, otp);
+        if (!result.ok) {
+          // eslint-disable-next-line no-console
+          console.error("[EMAIL-OTP] send failed:", result.reason);
+          throw new Error("OTP_SEND_FAILED");
+        }
+      },
+      expiresIn: 60 * 5,
+    }),
     phoneNumber({
       sendOTP: async ({ phoneNumber: rawPhone, code }) => {
         // Normalize early — the plugin does not enforce country

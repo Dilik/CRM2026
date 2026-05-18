@@ -8,6 +8,12 @@ const envSchema = z.object({
   ESKIZ_PASSWORD: z.string().optional(),
   ESKIZ_FROM: z.string().optional(),
   ESKIZ_MOCK: z.enum(["true", "false"]).default("true"),
+  EMAIL_MOCK: z.enum(["true", "false"]).default("true"),
+  SMTP_HOST: z.string().optional(),
+  SMTP_PORT: z.string().optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  EMAIL_FROM: z.string().optional(),
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
 });
 

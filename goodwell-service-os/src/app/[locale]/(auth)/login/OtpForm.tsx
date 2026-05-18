@@ -57,7 +57,7 @@ export function OtpForm({ phone, onBack }: { phone: string; onBack: () => void }
     <form onSubmit={onSubmit} className="space-y-4">
       <div className="text-center">
         <h2 className="text-lg font-semibold">{t("otp.title")}</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{t("otp.subtitle")}</p>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">{t("otp.subtitlePhone")}</p>
         <p className="text-sm font-mono mt-2">+{phone}</p>
       </div>
 

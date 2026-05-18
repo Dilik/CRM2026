@@ -23,10 +23,12 @@ enum LocaleCode {
 
 model User {
   id            String     @id @default(cuid())
-  phone         String     @unique
+  phone         String?    @unique
   phoneVerified Boolean    @default(false)
-  name          String
-  role          UserRole
+  email         String?    @unique
+  emailVerified Boolean    @default(false)
+  name          String     @default("")
+  role          UserRole   @default(MASTER)
   language      LocaleCode @default(uz_Latn)
   active        Boolean    @default(true)
   createdAt     DateTime   @default(now())
@@ -88,4 +90,373 @@ model OtpRateLimit {
   @@unique([phone, windowKey])
   @@index([phone])
   @@index([expiresAt])
+}
+
+// ─── Phase 2: Catalog & BOM ───────────────────────────────────────────────────
+
+enum ApplianceCategory {
+  REFRIGERATOR
+  WASHING_MACHINE
+  DISHWASHER
+  OVEN
+  MICROWAVE
+  COOKTOP
+  HOOD
+  DRYER
+  OTHER
+}
+
+model ApplianceModel {
+  id          String            @id @default(cuid())
+  brand       String
+  modelCode   String            @unique
+  nameUz      String
+  nameRu      String
+  category    ApplianceCategory
+  active      Boolean           @default(true)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  versions    ApplianceModelVersion[]
+  customers   CustomerAppliance[]
+}
+
+model ApplianceModelVersion {
+  id              String         @id @default(cuid())
+  modelId         String
+  year            Int
+  piNumber        String
+  piDate          DateTime?
+  unitVolume      Int            @default(0)
+  active          Boolean        @default(true)
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  model           ApplianceModel @relation(fields: [modelId], references: [id])
+  bomFiles        BomFile[]
+  bomParts        BomPart[]
+  supplyOrders    SupplyOrder[]
+
+  @@unique([modelId, year])
+  @@index([modelId])
+}
+
+enum BomFileType {
+  PDF
+  EXCEL
+}
+
+model BomFile {
+  id        String                @id @default(cuid())
+  versionId String
+  type      BomFileType
+  url       String
+  filename  String
+  sizeBytes Int
+  uploadedBy String
+  createdAt DateTime              @default(now())
+  version   ApplianceModelVersion @relation(fields: [versionId], references: [id])
+
+  @@index([versionId])
+}
+
+model BomPart {
+  id          String                @id @default(cuid())
+  versionId   String
+  partCode    String
+  nameUz      String
+  nameRu      String
+  nameEn      String                @default("")
+  quantity    Int
+  unit        String                @default("pcs")
+  notes       String?
+  createdAt   DateTime              @default(now())
+  version     ApplianceModelVersion @relation(fields: [versionId], references: [id])
+  stockItems  StockItem[]
+  partUsages  OrderPartUsage[]
+
+  @@unique([versionId, partCode])
+  @@index([versionId])
+  @@index([partCode])
+}
+
+// ─── Phase 2: Supply Chain ────────────────────────────────────────────────────
+
+enum SupplyOrderStatus {
+  DRAFT
+  APPROVED
+  ORDERED
+  IN_TRANSIT
+  ARRIVED
+  RECEIVED
+  CANCELLED
+}
+
+model SupplyOrder {
+  id          String              @id @default(cuid())
+  versionId   String
+  status      SupplyOrderStatus   @default(DRAFT)
+  notes       String?
+  createdBy   String
+  approvedBy  String?
+  approvedAt  DateTime?
+  receivedAt  DateTime?
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  version     ApplianceModelVersion @relation(fields: [versionId], references: [id])
+  lines       SupplyOrderLine[]
+
+  @@index([versionId])
+  @@index([status])
+}
+
+model SupplyOrderLine {
+  id            String      @id @default(cuid())
+  supplyOrderId String
+  partCode      String
+  nameUz        String
+  quantity      Int
+  unitCost      Decimal     @default(0) @db.Decimal(12, 2)
+  notes         String?
+  createdAt     DateTime    @default(now())
+  supplyOrder   SupplyOrder @relation(fields: [supplyOrderId], references: [id], onDelete: Cascade)
+
+  @@index([supplyOrderId])
+}
+
+// ─── Phase 3: Inventory ───────────────────────────────────────────────────────
+
+enum MovementType {
+  RECEIVE
+  ISSUE
+  RETURN
+  ADJUST
+  RESERVE
+  RELEASE
+}
+
+model StockItem {
+  id          String           @id @default(cuid())
+  partId      String
+  quantity    Int              @default(0)
+  reserved    Int              @default(0)
+  lowStockAt  Int              @default(2)
+  unitCost    Decimal          @default(0) @db.Decimal(12, 2)
+  updatedAt   DateTime         @updatedAt
+  part        BomPart          @relation(fields: [partId], references: [id])
+  movements   InventoryMovement[]
+
+  @@unique([partId])
+  @@index([partId])
+}
+
+model InventoryMovement {
+  id          String       @id @default(cuid())
+  stockItemId String
+  type        MovementType
+  quantity    Int
+  reason      String?
+  orderId     String?
+  performedBy String
+  createdAt   DateTime     @default(now())
+  stockItem   StockItem    @relation(fields: [stockItemId], references: [id])
+
+  @@index([stockItemId])
+  @@index([orderId])
+  @@index([createdAt])
+}
+
+// ─── Phase 4: Customers ───────────────────────────────────────────────────────
+
+model Customer {
+  id           String              @id @default(cuid())
+  phone        String              @unique
+  name         String
+  address      String?
+  notes        String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  appliances   CustomerAppliance[]
+  orders       ServiceOrder[]
+  feedbacks    Feedback[]
+
+  @@index([phone])
+  @@index([name])
+}
+
+model CustomerAppliance {
+  id           String         @id @default(cuid())
+  customerId   String
+  modelId      String
+  serialNumber String?
+  purchaseDate DateTime?
+  notes        String?
+  createdAt    DateTime       @default(now())
+  customer     Customer       @relation(fields: [customerId], references: [id])
+  model        ApplianceModel @relation(fields: [modelId], references: [id])
+  orders       ServiceOrder[]
+
+  @@index([customerId])
+  @@index([modelId])
+}
+
+// ─── Phase 4: Service Orders ──────────────────────────────────────────────────
+
+enum OrderStatus {
+  INTAKE
+  ASSIGNED
+  DIAGNOSED
+  PARTS_REQUESTED
+  IN_REPAIR
+  READY
+  CLOSED
+  CANCELLED
+  ON_HOLD
+}
+
+enum OrderSource {
+  WALK_IN
+  PHONE_IN
+  ONLINE
+}
+
+enum OrderPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model ServiceOrder {
+  id             String              @id @default(cuid())
+  orderNumber    String              @unique
+  customerId     String
+  applianceId    String?
+  status         OrderStatus         @default(INTAKE)
+  source         OrderSource         @default(WALK_IN)
+  priority       OrderPriority       @default(NORMAL)
+  problem        String
+  diagnosis      String?
+  masterId       String?
+  version        Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  customer       Customer            @relation(fields: [customerId], references: [id])
+  appliance      CustomerAppliance?  @relation(fields: [applianceId], references: [id])
+  events         OrderEvent[]
+  partUsages     OrderPartUsage[]
+  invoice        Invoice?
+
+  @@index([customerId])
+  @@index([masterId])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model OrderEvent {
+  id          String      @id @default(cuid())
+  orderId     String
+  fromStatus  OrderStatus?
+  toStatus    OrderStatus
+  note        String?
+  performedBy String
+  createdAt   DateTime    @default(now())
+  order       ServiceOrder @relation(fields: [orderId], references: [id])
+
+  @@index([orderId])
+}
+
+model OrderPartUsage {
+  id          String       @id @default(cuid())
+  orderId     String
+  partId      String
+  quantity    Int
+  unitCost    Decimal      @db.Decimal(12, 2)
+  issuedBy    String
+  issuedAt    DateTime     @default(now())
+  order       ServiceOrder @relation(fields: [orderId], references: [id])
+  part        BomPart      @relation(fields: [partId], references: [id])
+
+  @@index([orderId])
+  @@index([partId])
+}
+
+// ─── Phase 5: Finance ─────────────────────────────────────────────────────────
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PARTIALLY_PAID
+  PAID
+  VOIDED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  BANK_TRANSFER
+}
+
+model Invoice {
+  id             String        @id @default(cuid())
+  invoiceNumber  String        @unique
+  orderId        String        @unique
+  status         InvoiceStatus @default(DRAFT)
+  locale         LocaleCode    @default(uz_Latn)
+  laborCost      Decimal       @default(0) @db.Decimal(12, 2)
+  totalAmount    Decimal       @default(0) @db.Decimal(12, 2)
+  paidAmount     Decimal       @default(0) @db.Decimal(12, 2)
+  notes          String?
+  issuedBy       String
+  issuedAt       DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  order          ServiceOrder  @relation(fields: [orderId], references: [id])
+  lines          InvoiceLine[]
+  payments       Payment[]
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model InvoiceLine {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  description String
+  quantity    Int
+  unitPrice   Decimal  @db.Decimal(12, 2)
+  total       Decimal  @db.Decimal(12, 2)
+  invoice     Invoice  @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@index([invoiceId])
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  invoiceId   String
+  amount      Decimal       @db.Decimal(12, 2)
+  method      PaymentMethod
+  reference   String?
+  recordedBy  String
+  recordedAt  DateTime      @default(now())
+  invoice     Invoice       @relation(fields: [invoiceId], references: [id])
+
+  @@index([invoiceId])
+}
+
+// ─── Phase 6: Feedback ────────────────────────────────────────────────────────
+
+model Feedback {
+  id          String       @id @default(cuid())
+  customerId  String
+  orderId     String?      @unique
+  rating      Int
+  comment     String?
+  staffReply  String?
+  repliedBy   String?
+  repliedAt   DateTime?
+  createdAt   DateTime     @default(now())
+  customer    Customer     @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
+  @@index([rating])
+  @@index([createdAt])
 }

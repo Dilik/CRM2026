@@ -1,31 +1,68 @@
 {
   "auth": {
-    "login.title": "Tizimga kirish",
-    "login.phoneLabel": "Telefon raqamingiz",
-    "login.phonePlaceholder": "+998 (XX) XXX-XX-XX",
-    "login.continue": "Davom etish",
-    "login.error.generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring.",
-    "login.error.smsFailed": "Kodni yuborib bo'lmadi. Qaytadan urinib ko'ring.",
-    "otp.title": "Tasdiqlash kodi",
-    "otp.subtitle": "Telefoningizga yuborilgan 6 xonali kodni kiriting",
-    "otp.resend": "Kodni qaytadan yuborish",
-    "otp.resendIn": "Qaytadan yuborish ({seconds}s)",
-    "otp.verify": "Tasdiqlash",
-    "otp.error.invalid": "Kod noto'g'ri yoki muddati o'tgan",
+    "login": {
+      "title": "Tizimga kirish",
+      "phoneLabel": "Telefon raqamingiz",
+      "phonePlaceholder": "+998 (XX) XXX-XX-XX",
+      "emailLabel": "Elektron pochta",
+      "emailPlaceholder": "example@mail.com",
+      "continue": "Davom etish",
+      "phoneTab": "Telefon",
+      "emailTab": "Pochta",
+      "passwordTab": "Parol",
+      "error": {
+        "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring.",
+        "smsFailed": "Kodni yuborib bo'lmadi. Qaytadan urinib ko'ring.",
+        "emailFailed": "Kodni emailga yuborib bo'lmadi. Qaytadan urinib ko'ring.",
+        "invalidEmail": "To'g'ri email manzil kiriting."
+      }
+    },
+    "otp": {
+      "title": "Tasdiqlash kodi",
+      "subtitlePhone": "Telefoningizga yuborilgan 6 xonali kodni kiriting",
+      "subtitleEmail": "Emailingizga yuborilgan 6 xonali kodni kiriting",
+      "resend": "Kodni qaytadan yuborish",
+      "resendIn": "Qaytadan yuborish ({seconds}s)",
+      "verify": "Tasdiqlash",
+      "error": {
+        "invalid": "Kod noto'g'ri yoki muddati o'tgan"
+      }
+    },
     "logout": "Chiqish"
   },
   "shell": {
-    "nav.dashboard": "Asosiy",
-    "nav.orders": "Buyurtmalar",
-    "nav.customers": "Mijozlar",
-    "nav.catalog": "Katalog",
-    "nav.warehouse": "Ombor",
-    "nav.finance": "Moliya",
-    "nav.reports": "Hisobotlar",
-    "nav.settings": "Sozlamalar",
-    "nav.staffManagement": "Xodimlar",
-    "profile.language": "Til",
-    "profile.signOut": "Chiqish"
+    "nav": {
+      "dashboard": "Asosiy",
+      "orders": "Buyurtmalar",
+      "customers": "Mijozlar",
+      "catalog": "Katalog",
+      "warehouse": "Ombor",
+      "finance": "Moliya",
+      "reports": "Hisobotlar",
+      "settings": "Sozlamalar",
+      "staffManagement": "Xodimlar"
+    },
+    "profile": {
+      "language": "Til",
+      "signOut": "Chiqish"
+    }
+  },
+  "staff": {
+    "title": "Xodimlar",
+    "create": "Xodim qo'shish",
+    "createTitle": "Yangi xodim",
+    "name": "Ism Familiya",
+    "phone": "Telefon",
+    "role": "Lavozim",
+    "active": "Faol",
+    "empty": "Xodimlar yo'q",
+    "created": "Xodim qo'shildi",
+    "save": "Saqlash",
+    "cancel": "Bekor qilish",
+    "error": {
+      "phoneTaken": "Bu telefon raqam allaqachon ro'yxatdan o'tgan",
+      "generic": "Xatolik yuz berdi"
+    }
   },
   "common": {
     "save": "Saqlash",
@@ -33,6 +70,8 @@
     "delete": "O'chirish",
     "edit": "Tahrirlash",
     "loading": "Yuklanmoqda...",
-    "error.unauthorized": "Sizda ruxsat yo'q"
+    "error": {
+      "unauthorized": "Sizda ruxsat yo'q"
+    }
   }
 }

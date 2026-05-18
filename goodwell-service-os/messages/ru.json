@@ -1,31 +1,68 @@
 {
   "auth": {
-    "login.title": "Вход в систему",
-    "login.phoneLabel": "Номер телефона",
-    "login.phonePlaceholder": "+998 (XX) XXX-XX-XX",
-    "login.continue": "Продолжить",
-    "login.error.generic": "Произошла ошибка. Попробуйте ещё раз.",
-    "login.error.smsFailed": "Не удалось отправить код. Попробуйте ещё раз.",
-    "otp.title": "Код подтверждения",
-    "otp.subtitle": "Введите 6-значный код, отправленный на ваш телефон",
-    "otp.resend": "Отправить код повторно",
-    "otp.resendIn": "Отправить повторно ({seconds}с)",
-    "otp.verify": "Подтвердить",
-    "otp.error.invalid": "Неверный или просроченный код",
+    "login": {
+      "title": "Вход в систему",
+      "phoneLabel": "Номер телефона",
+      "phonePlaceholder": "+998 (XX) XXX-XX-XX",
+      "emailLabel": "Электронная почта",
+      "emailPlaceholder": "example@mail.com",
+      "continue": "Продолжить",
+      "phoneTab": "Телефон",
+      "emailTab": "Почта",
+      "passwordTab": "Пароль",
+      "error": {
+        "generic": "Произошла ошибка. Попробуйте ещё раз.",
+        "smsFailed": "Не удалось отправить код. Попробуйте ещё раз.",
+        "emailFailed": "Не удалось отправить код на почту. Попробуйте ещё раз.",
+        "invalidEmail": "Введите корректный email адрес."
+      }
+    },
+    "otp": {
+      "title": "Код подтверждения",
+      "subtitlePhone": "Введите 6-значный код, отправленный на ваш телефон",
+      "subtitleEmail": "Введите 6-значный код, отправленный на вашу почту",
+      "resend": "Отправить код повторно",
+      "resendIn": "Отправить повторно ({seconds}с)",
+      "verify": "Подтвердить",
+      "error": {
+        "invalid": "Неверный или просроченный код"
+      }
+    },
     "logout": "Выйти"
   },
   "shell": {
-    "nav.dashboard": "Главная",
-    "nav.orders": "Заказы",
-    "nav.customers": "Клиенты",
-    "nav.catalog": "Каталог",
-    "nav.warehouse": "Склад",
-    "nav.finance": "Финансы",
-    "nav.reports": "Отчёты",
-    "nav.settings": "Настройки",
-    "nav.staffManagement": "Сотрудники",
-    "profile.language": "Язык",
-    "profile.signOut": "Выйти"
+    "nav": {
+      "dashboard": "Главная",
+      "orders": "Заказы",
+      "customers": "Клиенты",
+      "catalog": "Каталог",
+      "warehouse": "Склад",
+      "finance": "Финансы",
+      "reports": "Отчёты",
+      "settings": "Настройки",
+      "staffManagement": "Сотрудники"
+    },
+    "profile": {
+      "language": "Язык",
+      "signOut": "Выйти"
+    }
+  },
+  "staff": {
+    "title": "Сотрудники",
+    "create": "Добавить сотрудника",
+    "createTitle": "Новый сотрудник",
+    "name": "Имя Фамилия",
+    "phone": "Телефон",
+    "role": "Должность",
+    "active": "Активен",
+    "empty": "Сотрудников нет",
+    "created": "Сотрудник добавлен",
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "error": {
+      "phoneTaken": "Этот номер телефона уже зарегистрирован",
+      "generic": "Произошла ошибка"
+    }
   },
   "common": {
     "save": "Сохранить",
@@ -33,6 +70,8 @@
     "delete": "Удалить",
     "edit": "Редактировать",
     "loading": "Загрузка...",
-    "error.unauthorized": "Доступ запрещён"
+    "error": {
+      "unauthorized": "Доступ запрещён"
+    }
   }
 }

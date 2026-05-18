@@ -1,31 +1,68 @@
 {
   "auth": {
-    "login.title": "Тизимга кириш",
-    "login.phoneLabel": "Телефон рақамингиз",
-    "login.phonePlaceholder": "+998 (ХХ) ХХХ-ХХ-ХХ",
-    "login.continue": "Давом етиш",
-    "login.error.generic": "Хатолик юз берди. Қайтадан уриниб кўринг.",
-    "login.error.smsFailed": "Кодни юбориб бўлмади. Қайтадан уриниб кўринг.",
-    "otp.title": "Тасдиқлаш коди",
-    "otp.subtitle": "Телефонингизга юборилган 6 хонали кодни киритинг",
-    "otp.resend": "Кодни қайтадан юбориш",
-    "otp.resendIn": "Қайтадан юбориш ({сецондс}с)",
-    "otp.verify": "Тасдиқлаш",
-    "otp.error.invalid": "Код нотўғри ёки муддати ўтган",
+    "login": {
+      "title": "Тизимга кириш",
+      "phoneLabel": "Телефон рақамингиз",
+      "phonePlaceholder": "+998 (ХХ) ХХХ-ХХ-ХХ",
+      "emailLabel": "Електрон почта",
+      "emailPlaceholder": "ехампле@маил.цом",
+      "continue": "Давом етиш",
+      "phoneTab": "Телефон",
+      "emailTab": "Почта",
+      "passwordTab": "Парол",
+      "error": {
+        "generic": "Хатолик юз берди. Қайтадан уриниб кўринг.",
+        "smsFailed": "Кодни юбориб бўлмади. Қайтадан уриниб кўринг.",
+        "emailFailed": "Кодни емаилга юбориб бўлмади. Қайтадан уриниб кўринг.",
+        "invalidEmail": "Тўғри емаил манзил киритинг."
+      }
+    },
+    "otp": {
+      "title": "Тасдиқлаш коди",
+      "subtitlePhone": "Телефонингизга юборилган 6 хонали кодни киритинг",
+      "subtitleEmail": "Емаилингизга юборилган 6 хонали кодни киритинг",
+      "resend": "Кодни қайтадан юбориш",
+      "resendIn": "Қайтадан юбориш ({сецондс}с)",
+      "verify": "Тасдиқлаш",
+      "error": {
+        "invalid": "Код нотўғри ёки муддати ўтган"
+      }
+    },
     "logout": "Чиқиш"
   },
   "shell": {
-    "nav.dashboard": "Асосий",
-    "nav.orders": "Буюртмалар",
-    "nav.customers": "Мижозлар",
-    "nav.catalog": "Каталог",
-    "nav.warehouse": "Омбор",
-    "nav.finance": "Молия",
-    "nav.reports": "Ҳисоботлар",
-    "nav.settings": "Созламалар",
-    "nav.staffManagement": "Ходимлар",
-    "profile.language": "Тил",
-    "profile.signOut": "Чиқиш"
+    "nav": {
+      "dashboard": "Асосий",
+      "orders": "Буюртмалар",
+      "customers": "Мижозлар",
+      "catalog": "Каталог",
+      "warehouse": "Омбор",
+      "finance": "Молия",
+      "reports": "Ҳисоботлар",
+      "settings": "Созламалар",
+      "staffManagement": "Ходимлар"
+    },
+    "profile": {
+      "language": "Тил",
+      "signOut": "Чиқиш"
+    }
+  },
+  "staff": {
+    "title": "Ходимлар",
+    "create": "Ходим қўшиш",
+    "createTitle": "Янги ходим",
+    "name": "Исм Фамилия",
+    "phone": "Телефон",
+    "role": "Лавозим",
+    "active": "Фаол",
+    "empty": "Ходимлар ё'қ",
+    "created": "Ходим қўшилди",
+    "save": "Сақлаш",
+    "cancel": "Бекор қилиш",
+    "error": {
+      "phoneTaken": "Бу телефон рақам аллақачон рўйхатдан ўтган",
+      "generic": "Хатолик юз берди"
+    }
   },
   "common": {
     "save": "Сақлаш",
@@ -33,6 +70,8 @@
     "delete": "Ўчириш",
     "edit": "Таҳрирлаш",
     "loading": "Юкланмоқда...",
-    "error.unauthorized": "Сизда рухсат ё'қ"
+    "error": {
+      "unauthorized": "Сизда рухсат ё'қ"
+    }
   }
 }
